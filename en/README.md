@@ -6,13 +6,13 @@
 
 | Page 1 · Exam paper design | Page 2 · Verification workflow |
 | --- | --- |
-| [![QR codes inside and below the passage and beside five answer choices](exam-sheet.png)](exam-sheet.png) | [![Proposed workflow for the exam authority and service provider](architecture.png)](architecture.png) |
+| [![Codes at the right of the passage, below it and at the far right of each answer row](exam-sheet.png)](exam-sheet.png) | [![Proposed workflow for the exam authority and service provider](architecture.png)](architecture.png) |
 
-An exam authority prints one QR code inside the passage, one directly below it and one beside each of the five answer choices. When a user submits a photo, a participating AI service could read a code and check whether the exam is currently protected. The prototype includes a printable sample question and seven working QR codes. The second page illustrates the proposed registry, signature checks, account records and service integration.
+The first page shows a sample exam question. The passage reads as one paragraph, with a QR code at its right edge and another below. Each answer number sits directly beside its text, with a code at the far right of the row. The second page shows how a participating AI service could read a code in a submitted photo and check the exam’s protection period.
 
 ## Try the exam paper
 
-Print the PDF on A4 paper at 100% scale. The question uses 11 pt body text. Each QR code measures about 11 mm on each side, including its white border. A QR reader can decode the sample strings offline. The code inside the passage reads `DEMO-Q01-T`. The code below the passage reads `DEMO-Q01-P`. The five choices carry `DEMO-Q01-A1` through `DEMO-Q01-A5`.
+Print on A4 at 100% scale. The body text is 11 pt. Each QR code measures about 11 mm per side, including its white border. The code at the right edge of the passage reads `DEMO-Q01-T`; the one below the passage on the left reads `DEMO-Q01-P`. The codes at the right ends of the answer rows read `DEMO-Q01-A1` through `DEMO-Q01-A5`. All seven identifiers can be read offline.
 
 ## How a participating service would verify a photo
 
@@ -24,6 +24,6 @@ For a later review, authorized staff could look up the event time and an interna
 
 ## Digital checks and print trial
 
-Each language edition fits on two A4 pages. We rendered the first page of each PDF in grayscale at 225 dpi. ZXing-C++ decoded all seven identifiers in every full-page image. OpenCV decoded all seven individual marker crops. Its multi-code detector returned zero on the same full-page images. In a crop containing only the passage, excluding the marker below it and the answer choices, both ZXing-C++ and OpenCV decoded the in-text identifier `DEMO-Q01-T` in every edition. Read rates for phone photos of printed copies still need to be measured.
+All four editions fit on two A4 pages. We tested a 225 dpi grayscale rendering of each first page. ZXing-C++ read all seven identifiers from every full page. OpenCV read all seven individually cropped markers. On this edition’s full page, OpenCV’s multi-code detector read 0 of the seven. Both decoders read `DEMO-Q01-T` from the passage including its right edge, with the lower marker and answer rows excluded. A full-question photo can retain the lower-left marker even if the right edge is cut off. A passage-only crop that omits the right edge contains no QR code.
 
-For the print trial, photograph the whole question, the passage alone and a selection of answer choices. Record phone model, distance, angle, lighting and image compression for each condition. Count all photos, photos containing a complete marker, and photos with at least one valid decoded ID. The second count divided by the first gives marker inclusion. The third divided by the first gives overall detection. Also test ordinary documents for false positives and record processing time, print quality and readability.
+The print trial will compare full-question photos, passage crops with and without the right edge, and partial answer rows across phone models, lighting, distance and angle. Ordinary documents will be used to measure false positives. A reader trial will compare completion time, accuracy and reported discomfort for an unmarked paper, a center-marker layout and this right-edge layout. Both phone and reader trials are pending.
