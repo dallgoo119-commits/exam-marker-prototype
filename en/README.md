@@ -6,13 +6,13 @@
 
 | Page 1 · Exam paper design | Page 2 · Verification workflow |
 | --- | --- |
-| [![QR codes below the passage and beside five answer choices](exam-sheet.png)](exam-sheet.png) | [![Proposed workflow for the exam authority and service provider](architecture.png)](architecture.png) |
+| [![QR codes inside and below the passage and beside five answer choices](exam-sheet.png)](exam-sheet.png) | [![Proposed workflow for the exam authority and service provider](architecture.png)](architecture.png) |
 
-An exam authority prints a small QR code beneath a question’s passage and beside each answer choice. When a user submits a photo, a participating AI service could read a code and check whether the exam is currently protected. The prototype includes a printable sample question and six working QR codes. The second page illustrates the proposed registry, signature checks, account records and service integration.
+An exam authority prints one QR code inside the passage, one directly below it and one beside each of the five answer choices. When a user submits a photo, a participating AI service could read a code and check whether the exam is currently protected. The prototype includes a printable sample question and seven working QR codes. The second page illustrates the proposed registry, signature checks, account records and service integration.
 
 ## Try the exam paper
 
-Print the PDF on A4 paper at 100% scale. The question uses 11 pt body text. Each QR code measures about 11 mm on each side, including its white border. A QR reader can decode the sample strings offline. The passage carries `DEMO-Q01-P`. The five choices carry `DEMO-Q01-A1` through `DEMO-Q01-A5`.
+Print the PDF on A4 paper at 100% scale. The question uses 11 pt body text. Each QR code measures about 11 mm on each side, including its white border. A QR reader can decode the sample strings offline. The code inside the passage reads `DEMO-Q01-T`. The code below the passage reads `DEMO-Q01-P`. The five choices carry `DEMO-Q01-A1` through `DEMO-Q01-A5`.
 
 ## How a participating service would verify a photo
 
@@ -24,6 +24,6 @@ For a later review, authorized staff could look up the event time and an interna
 
 ## Digital checks and print trial
 
-We verified that all four language editions fit on two A4 pages each and rendered the first page of each edition in grayscale at 225 dpi. The following results held for every edition. ZXing-C++ read all six identifiers from the full page. OpenCV read each of the six markers when cropped individually. Its multiple-QR detector found none in the same full-page image. These results describe a digital rendering. Detection rates for phone photographs of printed pages still need to be measured.
+Each language edition fits on two A4 pages. We rendered the first page of each PDF in grayscale at 225 dpi. ZXing-C++ decoded all seven identifiers in every full-page image. OpenCV decoded all seven individual marker crops. Its multi-code detector returned zero on the same full-page images. In a crop containing only the passage, excluding the marker below it and the answer choices, both ZXing-C++ and OpenCV decoded the in-text identifier `DEMO-Q01-T` in every edition. Read rates for phone photos of printed copies still need to be measured.
 
 For the print trial, photograph the whole question, the passage alone and a selection of answer choices. Record phone model, distance, angle, lighting and image compression for each condition. Count all photos, photos containing a complete marker, and photos with at least one valid decoded ID. The second count divided by the first gives marker inclusion. The third divided by the first gives overall detection. Also test ordinary documents for false positives and record processing time, print quality and readability.
